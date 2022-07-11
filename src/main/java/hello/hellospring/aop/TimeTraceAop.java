@@ -12,6 +12,9 @@ public class TimeTraceAop {
     /**
      *
      * @Around annotation을 통해서 어디에 적용할지 정해줄 수 있음.
+     *
+     * 원하는 곳에 공통사항 적용 가능
+     *
      */
 
     @Around("execution(* hello.hellospring..*(..))")

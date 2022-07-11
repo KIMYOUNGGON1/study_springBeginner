@@ -29,6 +29,10 @@ public class MemberService {
      * 측정도 어렵지만 유지보수도 어려워진다.
      *
      * 이를 AOP로 해결이 가능해진다.
+     * Aspect Oriented Programming
+     * 공통 관심 사항(cross-cutting concern)과 핵심 관심 사항(core concern)을 분리함.
+     *
+     * 그리고 원하는 곳에 공통 관심 사항을 적용하는 것이다.
      */
 
 

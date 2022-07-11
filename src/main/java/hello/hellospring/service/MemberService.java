@@ -23,13 +23,33 @@ public class MemberService {
     }
 
     /**
+     * 예를 들어서 실무에서 모든 method의 동작 시간을 측정해야 하는 상황이 발생했다면?
+     *
+     * 이것은 핵심 관심 사항도 아니며, 공통적으로 측정해야 하기에 공통 관심 사항이다.
+     * 측정도 어렵지만 유지보수도 어려워진다.
+     *
+     * 이를 AOP로 해결이 가능해진다.
+     */
+
+
+    /**
      *회원가입
      */
     public Long join(Member member) {
-        //같은 이름이 있는 중복 회원X
-        validateDuplicateMember(member); //중복 회원 검증 (ctrl + alt + m으로 코드 리팩토링) => method화.
-        memberRepository.save(member);
-        return member.getId();
+
+        long start = System.currentTimeMillis();
+
+
+        try {
+            //같은 이름이 있는 중복 회원X
+            validateDuplicateMember(member); //중복 회원 검증 (ctrl + alt + m으로 코드 리팩토링) => method화.
+            memberRepository.save(member);
+            return member.getId();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("join" + timeMs + "ms");
+        }
     }
 
     private void validateDuplicateMember(Member member) {
@@ -48,7 +68,14 @@ public class MemberService {
      *  전체 회원 조회
      */
     public List<Member> findMembers() {
-        return memberRepository.findAll();
+        long start = System.currentTimeMillis();
+        try {
+            return memberRepository.findAll();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("findMembers " + timeMs + "ms");
+        }
     }
 
     public Optional<Member> findOne(Long memberId) {
